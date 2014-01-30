@@ -10,23 +10,9 @@
  * License: GPL2
  */
 
-class CodeFW {
 
-	function CodeFW(){
-		var_dump("Hello World");
-		//$this->createMenu();
-	}
+include "class.CodeFW.php";
 
-	function createMenu(){
-		//add_menu_page( 'My Page Title', 'My Page', 'edit_others_posts', 'my_page_slug', 'my_page_function', plugins_url( 'myplugin/images/icon.png' ), 6 );
-	}
-
-	function loadView(){
-		//echo "Ola Mundo";
-	}
-}
-
-//initialize this things
-$CodeFW_plugin = new CodeFW();
+$plg = new CodeFW();
 
 ?>
