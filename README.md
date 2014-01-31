@@ -1,3 +1,3 @@
 CodeFW
 ======
-Is a wordpress framework!!
+Is a wordpress framework
