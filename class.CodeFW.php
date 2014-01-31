@@ -76,8 +76,6 @@ class CodeFW
                 // create a menu
 
         // section 127-0-1-1--362c337a:143e0ac8ec9:-8000:0000000000000978 end
-        
-        //add_action('admin_init', array($this, 'addMenuPage'));
     }
 
     /**
@@ -92,8 +90,6 @@ class CodeFW
         // section 127-0-1-1--362c337a:143e0ac8ec9:-8000:000000000000097E begin
         //add_menu_page( 'CodefW menu', 'CodeFW', null, 'codeFW_Menu', array($this, 'loadView' );
         // section 127-0-1-1--362c337a:143e0ac8ec9:-8000:000000000000097E end
-        
-
     }
 
     /**
@@ -124,6 +120,34 @@ class CodeFW
     {
         // section 127-0-1-1--af3b2eb:143e31b3f52:-8000:0000000000000A83 begin
         // section 127-0-1-1--af3b2eb:143e31b3f52:-8000:0000000000000A83 end
+    }
+
+    /**
+     * Register an app into framework
+     *
+     * @access public
+     * @author Joao Patricio
+     * @param  app
+     * @return mixed
+     * @version 1.0
+     */
+    public function addApp($app)
+    {
+        // section 127-0-1-1-5d18c4fb:143ea0e3644:-8000:0000000000000AA5 begin
+        // section 127-0-1-1-5d18c4fb:143ea0e3644:-8000:0000000000000AA5 end
+    }
+
+    /**
+     * Short description of method newOperation
+     *
+     * @access public
+     * @author firstname and lastname of author, <author@example.org>
+     * @return mixed
+     */
+    public function newOperation()
+    {
+        // section 127-0-1-1-5d18c4fb:143ea0e3644:-8000:0000000000000AA7 begin
+        // section 127-0-1-1-5d18c4fb:143ea0e3644:-8000:0000000000000AA7 end
     }
 
 } /* end of class CodeFW */

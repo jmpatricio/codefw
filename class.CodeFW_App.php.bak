@@ -9,7 +9,7 @@ error_reporting(E_ALL);
  *
  * This file is part of CodeFW Diagrams.
  *
- * Automatically generated on 31.01.2014, 21:02:35 with ArgoUML PHP module 
+ * Automatically generated on 31.01.2014, 20:59:02 with ArgoUML PHP module 
  * (last revised $Date: 2010-01-12 20:14:42 +0100 (Tue, 12 Jan 2010) $)
  *
  * @author firstname and lastname of author, <author@example.org>
@@ -116,7 +116,6 @@ class CodeFW_App
     public function getConfig()
     {
         // section 127-0-1-1--af3b2eb:143e31b3f52:-8000:0000000000000AA0 begin
-        
         // section 127-0-1-1--af3b2eb:143e31b3f52:-8000:0000000000000AA0 end
     }
 
@@ -145,13 +144,12 @@ class CodeFW_App
      */
     public function CodeFW_App($name)
     {
-        
         // section 127-0-1-1-5d18c4fb:143ea0e3644:-8000:0000000000000AB2 begin
         $this->name = $name;
-        $base_dir = WP_PLUGIN_DIR.'/codefw-apps/';
-        $this->path = $base_dir.$this->name;
         // section 127-0-1-1-5d18c4fb:143ea0e3644:-8000:0000000000000AB2 end
     }
+
+
 
 } /* end of class CodeFW_App */
 

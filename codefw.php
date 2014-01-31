@@ -13,6 +13,8 @@
 
 include "class.CodeFW.php";
 
-$plg = new CodeFW();
+//$plg = new CodeFW();
+$app = new CodeFW_App("hello");
+var_dump($app->getName());
+var_dump($app->getPath());
 
-?>
