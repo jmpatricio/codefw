@@ -115,7 +115,7 @@ class CodeFW
     }
 
     /**
-     * Add an app menud to sidepane of wordpress backend
+     * Add an app menu to sidepane of wordpress backend
      *
      * @access public
      * @author João Patrício
@@ -132,12 +132,29 @@ class CodeFW
          
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000ADC end
     }
+		
+    /**
+     * Include bootstrap files on the app's view
+     *
+     * @access private
+     * @author André Bittencourt
+     * @return mixed
+     * @since 1.0
+     * @version 1.0
+     */
+		public function include_bootstrap_files() {
+      $bootstrapPath = plugins_url().'/codefw/include/ui/bootstrap/';
+			wp_enqueue_style('booststrap_min_css', $bootstrapPath.'css/bootstrap.min.css');
+			wp_enqueue_script('jquery', 'http://code.jquery.com/jquery.js', array(), '1.0.0', true);
+			wp_enqueue_script('bootstrap_min_js', $bootstrapPath.'js/bootstrap.min.js', array(), '1.0.0', true);
+		}
+		
 
     /**
      * Configure wordpress hooks to add actions
      *
      * @access private
-     * @author João Patrício
+     * @author João Patrício and André Bittencourt
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -146,37 +163,15 @@ class CodeFW
     {
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000AE3 begin
         add_action('admin_menu',array($this,'addMenus'));
+				add_action('admin_enqueue_scripts', array($this,'include_bootstrap_files'));
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000AE3 end
     }
-		
-    /**
-     * Dynamic include of bootstrap files on views
-     *
-     * @access private
-     * @author André Bittencourt
-     * @return mixed
-     * @since 1.0
-     * @version 1.0
-     */
-		private function includeBootstrap($content){
-			if (strpos($content,'<!-- include bootstrap css -->') !== false){
-				$content = str_replace('<!-- include bootstrap css -->', 
-				'<link href="'.plugins_url().'/codefw/include/ui/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">', 
-				$content);
-			}
-			if (strpos($content,'<!-- include bootstrap js -->') !== false){
-				$content = str_replace('<!-- include bootstrap js -->', 
-				'<script src="http://code.jquery.com/jquery.js"></script><script src="'.plugins_url().'/codefw/include/ui/bootstrap/js/bootstrap.min.js"></script>', 
-				$content);
-			}
-			return $content;
-		}
 
     /**
      * Loads an app from wordpress side menu
      *
      * @access public
-     * @author João Patrício and André Bittencourt
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -188,9 +183,7 @@ class CodeFW
         if (!empty($appName)){
             $app = $this->apps[$appName];
             $view = $app->getInitialView();
-						$content = $app->getViewContent($view);
-						$content = $this->includeBootstrap($content);
-						echo $content;
+						echo $app->getViewContent($view);
         } else {
             echo "<h3>Ups</h3>";
         }
