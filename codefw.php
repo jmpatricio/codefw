@@ -21,3 +21,5 @@ var_dump($app->getConfig());
 */
 $codefw = new CodeFW();
 //var_dump($codefw->getApps());
+
+?>
