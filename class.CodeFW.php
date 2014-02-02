@@ -150,7 +150,7 @@ class CodeFW
     }
 		
     /**
-     * Configure wordpress hooks to add actions
+     * Dynamic include of bootstrap files on views
      *
      * @access private
      * @author André Bittencourt
