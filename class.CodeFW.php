@@ -186,9 +186,11 @@ class CodeFW
     {
         // section -64--88-1-2-5a3b52dc:143f96db593:-8000:0000000000000B04 begin
 				$bootstrapPath = plugins_url().'/codefw/include/ui/bootstrap/';
+                                $angularjsPath = plugins_url().'/codefw/include/ui/angularjs/';
 				wp_enqueue_style('booststrap_min_css', $bootstrapPath.'css/bootstrap-custom.css');
-				wp_enqueue_script('jquery', 'http://code.jquery.com/jquery.js', array(), '1.0.0', true);
-				wp_enqueue_script('bootstrap_min_js', $bootstrapPath.'js/bootstrap.min.js', array(), '1.0.0', true);
+				//wp_enqueue_script('jquery', 'http://code.jquery.com/jquery.js', array(), '1.0.0', true);
+				wp_enqueue_script('bootstrap_min_js', $bootstrapPath.'js/bootstrap.min.js', array('jquery'), '1.0.0', true);
+                                wp_enqueue_script('angularjs', $angularjsPath.'angular.min.js', array(), '1.0.0', true);
         // section -64--88-1-2-5a3b52dc:143f96db593:-8000:0000000000000B04 end
     }
 
