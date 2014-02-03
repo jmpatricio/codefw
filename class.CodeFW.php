@@ -143,8 +143,8 @@ class CodeFW
      * @version 1.0
      */
 		public function include_bootstrap_files() {
-      $bootstrapPath = plugins_url().'/codefw/include/ui/bootstrap/';
-			wp_enqueue_style('booststrap_min_css', $bootstrapPath.'css/bootstrap.min.css');
+			$bootstrapPath = plugins_url().'/codefw/include/ui/bootstrap/';
+			wp_enqueue_style('booststrap_min_css', $bootstrapPath.'css/bootstrap-custom.css');
 			wp_enqueue_script('jquery', 'http://code.jquery.com/jquery.js', array(), '1.0.0', true);
 			wp_enqueue_script('bootstrap_min_js', $bootstrapPath.'js/bootstrap.min.js', array(), '1.0.0', true);
 		}
@@ -162,7 +162,7 @@ class CodeFW
     private function runWPHooks()
     {
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000AE3 begin
-        add_action('admin_menu',array($this,'addMenus'));
+        add_action('admin_menu', array($this,'addMenus'));
 				add_action('admin_enqueue_scripts', array($this,'include_bootstrap_files'));
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000AE3 end
     }
