@@ -60,7 +60,7 @@ class CodeFW
      * Create a new instance of CodeFW
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -77,7 +77,7 @@ class CodeFW
      * Get the applications list
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -94,7 +94,7 @@ class CodeFW
      * Read all active applications from json. Updates the attribute apps
      *
      * @access private
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -115,10 +115,10 @@ class CodeFW
     }
 
     /**
-     * Add an app menu to sidepane of wordpress backend
+     * Add an app menud to sidepane of wordpress backend
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -132,29 +132,12 @@ class CodeFW
          
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000ADC end
     }
-		
-    /**
-     * Include bootstrap files on the app's view
-     *
-     * @access private
-     * @author André Bittencourt
-     * @return mixed
-     * @since 1.0
-     * @version 1.0
-     */
-		public function include_bootstrap_files() {
-			$bootstrapPath = plugins_url().'/codefw/include/ui/bootstrap/';
-			wp_enqueue_style('booststrap_min_css', $bootstrapPath.'css/bootstrap-custom.css');
-			wp_enqueue_script('jquery', 'http://code.jquery.com/jquery.js', array(), '1.0.0', true);
-			wp_enqueue_script('bootstrap_min_js', $bootstrapPath.'js/bootstrap.min.js', array(), '1.0.0', true);
-		}
-		
 
     /**
      * Configure wordpress hooks to add actions
      *
      * @access private
-     * @author João Patrício and André Bittencourt
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -163,7 +146,7 @@ class CodeFW
     {
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000AE3 begin
         add_action('admin_menu', array($this,'addMenus'));
-				add_action('admin_enqueue_scripts', array($this,'include_bootstrap_files'));
+				add_action('admin_enqueue_scripts', array($this,'includeBootstrapFiles'));
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000AE3 end
     }
 
@@ -171,7 +154,7 @@ class CodeFW
      * Loads an app from wordpress side menu
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -188,6 +171,25 @@ class CodeFW
             echo "<h3>Ups</h3>";
         }
         // section 127-0-1-1--60f43130:143ea95fd0a:-8000:0000000000000AE9 end
+    }
+
+    /**
+     * Include bootstrap files on the app's view
+     *
+     * @access public
+     * @author Andr Bittencourt
+     * @return mixed
+     * @since 1.0
+     * @version 1.0
+     */
+    public function includeBootstrapFiles()
+    {
+        // section -64--88-1-2-5a3b52dc:143f96db593:-8000:0000000000000B04 begin
+				$bootstrapPath = plugins_url().'/codefw/include/ui/bootstrap/';
+				wp_enqueue_style('booststrap_min_css', $bootstrapPath.'css/bootstrap-custom.css');
+				wp_enqueue_script('jquery', 'http://code.jquery.com/jquery.js', array(), '1.0.0', true);
+				wp_enqueue_script('bootstrap_min_js', $bootstrapPath.'js/bootstrap.min.js', array(), '1.0.0', true);
+        // section -64--88-1-2-5a3b52dc:143f96db593:-8000:0000000000000B04 end
     }
 
 } /* end of class CodeFW */

@@ -80,7 +80,6 @@ class CodeFW_App
     public static function getBaseDir()
     {
         // section 127-0-1-1--2052b255:143ea654bd8:-8000:0000000000000AC8 begin
-        return WP_PLUGIN_DIR.'/codefw-apps/';
         // section 127-0-1-1--2052b255:143ea654bd8:-8000:0000000000000AC8 end
     }
 
@@ -97,7 +96,6 @@ class CodeFW_App
     public static function exists($name)
     {
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000AD1 begin
-        return file_exists( CodeFW_App::getBaseDir().$name.'/config.json');
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000AD1 end
     }
 
@@ -114,9 +112,6 @@ class CodeFW_App
     public function CodeFW_App($name)
     {
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000AD5 begin
-        $this->name = $name;
-        $this->path = CodeFW_App::getBaseDir().$this->name.'/';
-        $this->readConfig();
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000AD5 end
     }
 
@@ -131,7 +126,6 @@ class CodeFW_App
     public function getName()
     {
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000ADF begin
-        return $this->name;
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000ADF end
     }
 
@@ -146,7 +140,6 @@ class CodeFW_App
     public function getPath()
     {
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000AE5 begin
-        return $this->path;
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000AE5 end
     }
 
@@ -162,7 +155,6 @@ class CodeFW_App
     public function getConfig()
     {
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B07 begin
-        return $this->config;
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B07 end
     }
 
@@ -176,8 +168,6 @@ class CodeFW_App
     private function readConfig()
     {
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B14 begin
-        $json = file_get_contents($this->getPath().'/config.json') or null;
-        $this->config = json_decode($json);
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B14 end
     }
 
@@ -193,7 +183,6 @@ class CodeFW_App
     public function getInitialView()
     {
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AEE begin
-        return $this->getConfig()->settings->initial_view;
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AEE end
     }
 
@@ -210,12 +199,21 @@ class CodeFW_App
     public function getViewContent($view)
     {
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 begin
-        //var_dump($this->getPath().'views/'.$view.'html');
-				$content = '<div class="codeFW_Wrap">';
-				$content .= file_get_contents($this->getPath().'views/'.$view.'.html');
-				$content .= '</div>';
-        return $content;
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 end
+    }
+
+    /**
+     * flsdjnfkjsd
+     *
+     * @access public
+     * @author eu
+     * @return mixed
+     * @version 1.0
+     */
+    public function functionCode()
+    {
+        // section -64--88-1-2-7c5b4576:143f9667821:-8000:0000000000000AFF begin
+        // section -64--88-1-2-7c5b4576:143f9667821:-8000:0000000000000AFF end
     }
 
 } /* end of class CodeFW_App */

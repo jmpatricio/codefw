@@ -115,7 +115,7 @@ class CodeFW_App
     {
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000AD5 begin
         $this->name = $name;
-        $this->path = CodeFW_App::getBaseDir().$this->name;
+        $this->path = CodeFW_App::getBaseDir().$this->name.'/';
         $this->readConfig();
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000AD5 end
     }
@@ -179,6 +179,43 @@ class CodeFW_App
         $json = file_get_contents($this->getPath().'/config.json') or null;
         $this->config = json_decode($json);
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B14 end
+    }
+
+    /**
+     * Get initial view name
+     *
+     * @access public
+     * @author Joao Patricio
+     * @return mixed
+     * @since 1.0
+     * @version 1.0
+     */
+    public function getInitialView()
+    {
+        // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AEE begin
+        return $this->getConfig()->settings->initial_view;
+        // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AEE end
+    }
+
+    /**
+     * Get the view content in html
+     *
+     * @access public
+     * @author Joao Patricio
+     * @param  view View name
+     * @return mixed
+     * @since 1.0
+     * @version 1.0
+     */
+    public function getViewContent($view)
+    {
+        // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 begin
+        //var_dump($this->getPath().'views/'.$view.'html');
+				$content = '<div class="codeFW_Wrap">';
+				$content .= file_get_contents($this->getPath().'views/'.$view.'.html');
+				$content .= '</div>';
+        return $content;
+        // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 end
     }
 
 } /* end of class CodeFW_App */
