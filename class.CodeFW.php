@@ -23,6 +23,8 @@ if (0 > version_compare(PHP_VERSION, '5')) {
  */
 require_once('class.CodeFW_App.php');
 
+ 
+
 /* user defined includes */
 // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B18-includes begin
 // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B18-includes end

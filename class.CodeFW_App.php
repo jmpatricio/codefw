@@ -211,9 +211,21 @@ class CodeFW_App
     {
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 begin
         //var_dump($this->getPath().'views/'.$view.'html');
-				$content = '<div class="codeFW_Wrap">';
-				$content .= file_get_contents($this->getPath().'views/'.$view.'.html');
-				$content .= '</div>';
+        $jsContent = "
+            <script type='text/javascript'>
+                /**
+                * Get api url
+                */
+                function codeFW_getApiBaseUrl(){
+                    return '../wp-content/plugins/codefw-apps/".$this->getName()."/api.php';
+                }
+            </script>
+                ";
+        
+    	$content = '<div class="codeFW_Wrap">';
+        $content .= $jsContent;
+		$content .= file_get_contents($this->getPath().'views/'.$view.'.html');
+		$content .= '</div>';
         return $content;
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 end
     }
