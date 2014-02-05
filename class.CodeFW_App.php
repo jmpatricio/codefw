@@ -72,7 +72,7 @@ class CodeFW_App
      * Get application base directory
      *
      * @access public
-     * @author Jo�o Patr�cio
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -88,7 +88,7 @@ class CodeFW_App
      * Check if a application exists in filesystem
      *
      * @access public
-     * @author Jo�o Patr�cio
+     * @author Joo Patrcio
      * @param  name Application name
      * @return mixed
      * @since 1.0
@@ -105,7 +105,7 @@ class CodeFW_App
      * Creates a new CodeFW_App instance
      *
      * @access public
-     * @author Jo�o Patr�cio
+     * @author Joo Patrcio
      * @param  name Application name. Must be a string without spaces or special characters
      * @return mixed
      * @since 1.0
@@ -124,7 +124,7 @@ class CodeFW_App
      * Get app name
      *
      * @access public
-     * @author Jo�o Patr�cio
+     * @author Joo Patrcio
      * @since 1.0
      * @version 1.0
      */
@@ -154,7 +154,7 @@ class CodeFW_App
      * Get application config. Returns an array
      *
      * @access public
-     * @author Jo�o Patr�cio
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -170,7 +170,7 @@ class CodeFW_App
      * Read application config file. Updates attribute config
      *
      * @access private
-     * @author Jo�o Patr�cio
+     * @author Joo Patrcio
      * @return mixed
      */
     private function readConfig()
@@ -201,7 +201,7 @@ class CodeFW_App
      * Get the view content in html
      *
      * @access public
-     * @author Joao Patricio
+     * @author Joao Patricio and André Bittencourt
      * @param  view View name
      * @return mixed
      * @since 1.0
@@ -211,23 +211,37 @@ class CodeFW_App
     {
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 begin
         //var_dump($this->getPath().'views/'.$view.'html');
-	
-	$path = preg_replace('#^https?://#', '', plugins_url());
-        $jsContent = "
-            <script type='text/javascript'>
-                /**
-                * Get api url
-                */
-                function codeFW_getApiBaseUrl(){
-                    return '/".$path."/codefw-apps/".$this->getName()."/api.php';
-                }
-            </script>
-                ";
+				$path = preg_replace('#^https?://#', '', plugins_url());
+				$jsContent = "
+				            <script type='text/javascript'>
+				                /**
+				                * Get api url
+				                */
+				                function codeFW_getApiBaseUrl(){
+				                    return '/".$path."/codefw-apps/".$this->getName()."/api.php';
+				                }
+												
+				                /**
+				                * Include custom js
+				                */
+												function codeFW_includeCustomJs(jsPath) {
+													var pathOfFileToRead = '".plugins_url()."/codefw-apps/".$this->getName()."/js/'+jsPath+'.js';
+													var request = new XMLHttpRequest();
+													request.open('GET', pathOfFileToRead, false);
+													request.send(null);
+													var returnValue = '<s'+'cript>';
+													returnValue += request.responseText;
+													returnValue += '</s'+'cript>';
+													return returnValue;
+												}
+												
+				            </script>
+				                ";
         
-    	$content = '<div class="codeFW_Wrap">';
+    		$content = '<div class="codeFW_Wrap">';
         $content .= $jsContent;
-		$content .= file_get_contents($this->getPath().'views/'.$view.'.html');
-		$content .= '</div>';
+				$content .= file_get_contents($this->getPath().'views/'.$view.'.html');
+				$content .= '</div>';
         return $content;
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 end
     }
