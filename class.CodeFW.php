@@ -62,7 +62,7 @@ class CodeFW
      * Create a new instance of CodeFW
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -79,7 +79,7 @@ class CodeFW
      * Get the applications list
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -96,7 +96,7 @@ class CodeFW
      * Read all active applications from json. Updates the attribute apps
      *
      * @access private
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -120,7 +120,7 @@ class CodeFW
      * Add an app menud to sidepane of wordpress backend
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -131,7 +131,6 @@ class CodeFW
         foreach ($this->apps as $app){
             add_menu_page( $app->getConfig()->info->name, $app->getConfig()->info->name, 'activate_plugins', $app->getName(), array($this, 'loadApp'));   
         }
-         
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000ADC end
     }
 
@@ -139,7 +138,7 @@ class CodeFW
      * Configure wordpress hooks to add actions
      *
      * @access private
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -156,7 +155,7 @@ class CodeFW
      * Loads an app from wordpress side menu
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -179,7 +178,7 @@ class CodeFW
      * Include bootstrap files on the app's view
      *
      * @access public
-     * @author Andr Bittencourt
+     * @author André Bittencourt
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -188,11 +187,9 @@ class CodeFW
     {
         // section -64--88-1-2-5a3b52dc:143f96db593:-8000:0000000000000B04 begin
 				$bootstrapPath = plugins_url().'/codefw/include/ui/bootstrap/';
-                                $angularjsPath = plugins_url().'/codefw/include/ui/angularjs/';
-				wp_enqueue_style('booststrap_min_css', $bootstrapPath.'css/bootstrap-custom.css');
-				//wp_enqueue_script('jquery', 'http://code.jquery.com/jquery.js', array(), '1.0.0', true);
+				wp_enqueue_style('booststrap_custom_css', $bootstrapPath.'css/bootstrap-custom.css');
 				wp_enqueue_script('bootstrap_min_js', $bootstrapPath.'js/bootstrap.min.js', array('jquery'), '1.0.0', true);
-                                wp_enqueue_script('angularjs', $angularjsPath.'angular.min.js', array(), '1.0.0', true);
+				wp_enqueue_script('angular_min_js', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js', array(), '1.0.0', true);
         // section -64--88-1-2-5a3b52dc:143f96db593:-8000:0000000000000B04 end
     }
 
