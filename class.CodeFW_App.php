@@ -6,7 +6,7 @@ error_reporting(E_ALL);
  * Defines a CodeFW Application.
  * Every application must have an instance of this class.
  *
- * @author Joao Patricio
+ * @author João Patrício
  * @since 1.0
  * @version 1.0
  */
@@ -28,7 +28,7 @@ if (0 > version_compare(PHP_VERSION, '5')) {
  * Every application must have an instance of this class.
  *
  * @access public
- * @author Joao Patricio
+ * @author João Patrício
  * @since 1.0
  * @version 1.0
  */
@@ -139,7 +139,7 @@ class CodeFW_App
      * Get application path related to wordpress install directory
      *
      * @access public
-     * @author Joao Patricio
+     * @author João Patrício
      * @since 1.0
      * @version 1.0
      */
@@ -185,7 +185,7 @@ class CodeFW_App
      * Get initial view name
      *
      * @access public
-     * @author Joao Patricio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -201,7 +201,7 @@ class CodeFW_App
      * Get the view content in html
      *
      * @access public
-     * @author Joao Patricio
+     * @author João Patrício and André Bittencourt
      * @param  view View name
      * @return mixed
      * @since 1.0
@@ -211,23 +211,32 @@ class CodeFW_App
     {
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 begin
         //var_dump($this->getPath().'views/'.$view.'html');
-	
-	$path = preg_replace('#^https?://#', '', plugins_url());
-        $jsContent = "
-            <script type='text/javascript'>
-                /**
-                * Get api url
-                */
-                function codeFW_getApiBaseUrl(){
-                    return '/".$path."/codefw-apps/".$this->getName()."/api.php';
-                }
-            </script>
-                ";
+				$path = preg_replace('#^https?://#', '', plugins_url());
+				$jsContent = "<script type='text/javascript'>
+	/**
+	 * Get api url
+	 */
+	function codeFW_getApiBaseUrl(){
+		return '/".$path."/codefw-apps/".$this->getName()."/api.php';
+	}
+												
+	/**
+	 * Include custom js
+	 */
+	function codeFW_includeCustomJs(jsName) {
+		var jsFullPath = '".plugins_url()."/codefw-apps/".$this->getName()."/js/'+jsName+'.js';
+		var s = document.createElement('script');
+		s.type='text/javascript';
+		s.src= jsFullPath;
+		document.getElementsByTagName('body')[0].appendChild(s);
+	}
+												
+</script>";
         
-    	$content = '<div class="codeFW_Wrap">';
+    		$content = '<div class="codeFW_Wrap">';
         $content .= $jsContent;
-		$content .= file_get_contents($this->getPath().'views/'.$view.'.html');
-		$content .= '</div>';
+				$content .= file_get_contents($this->getPath().'views/'.$view.'.html');
+				$content .= '</div>';
         return $content;
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 end
     }
