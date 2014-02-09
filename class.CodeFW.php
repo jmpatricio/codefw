@@ -60,7 +60,7 @@ class CodeFW
      * Create a new instance of CodeFW
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -77,7 +77,7 @@ class CodeFW
      * Get the applications list
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -94,7 +94,7 @@ class CodeFW
      * Read all active applications from json. Updates the attribute apps
      *
      * @access private
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -118,7 +118,7 @@ class CodeFW
      * Add an app menud to sidepane of wordpress backend
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -136,7 +136,7 @@ class CodeFW
      * Configure wordpress hooks to add actions
      *
      * @access private
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -153,7 +153,7 @@ class CodeFW
      * Loads an app from wordpress side menu
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -176,7 +176,7 @@ class CodeFW
      * Include bootstrap files on the app's view
      *
      * @access public
-     * @author André Bittencourt
+     * @author Andr Bittencourt
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -185,12 +185,11 @@ class CodeFW
     {
         // section -64--88-1-2-5a3b52dc:143f96db593:-8000:0000000000000B04 begin
 				$bootstrapPath = plugins_url().'/codefw/include/ui/bootstrap/';
-                $angularPath = plugins_url().'/codefw/include/ui/angularjs/';
+				$angularPath = plugins_url().'/codefw/include/ui/angularjs/';
 				wp_enqueue_style('booststrap_custom_css', $bootstrapPath.'css/bootstrap-custom.css');
 				wp_enqueue_script('bootstrap_min_js', $bootstrapPath.'js/bootstrap.min.js', array('jquery'), '1.0.0', true);
-				wp_enqueue_script('angular_js', $angularPath.'angular.js', array());
-                wp_enqueue_script('angular_js_route', $angularPath.'angular-route.js', array('angular_js'));
-				//wp_enqueue_script('angular_route_js', 'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.js', array(), '1.0.0', true);
+				wp_enqueue_script('angular_js', $angularPath.'angular.js', array(), '1.0.0', true);
+				wp_enqueue_script('angular_js_route', $angularPath.'angular-route.js', array('angular_js'), '1.0.0', true);
         // section -64--88-1-2-5a3b52dc:143f96db593:-8000:0000000000000B04 end
     }
 

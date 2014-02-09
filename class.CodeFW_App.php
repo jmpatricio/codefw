@@ -6,7 +6,7 @@ error_reporting(E_ALL);
  * Defines a CodeFW Application.
  * Every application must have an instance of this class.
  *
- * @author João Patrício
+ * @author Joao Patricio
  * @since 1.0
  * @version 1.0
  */
@@ -28,7 +28,7 @@ if (0 > version_compare(PHP_VERSION, '5')) {
  * Every application must have an instance of this class.
  *
  * @access public
- * @author João Patrício
+ * @author Joao Patricio
  * @since 1.0
  * @version 1.0
  */
@@ -72,7 +72,7 @@ class CodeFW_App
      * Get application base directory
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -88,7 +88,7 @@ class CodeFW_App
      * Check if a application exists in filesystem
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @param  name Application name
      * @return mixed
      * @since 1.0
@@ -105,7 +105,7 @@ class CodeFW_App
      * Creates a new CodeFW_App instance
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @param  name Application name. Must be a string without spaces or special characters
      * @return mixed
      * @since 1.0
@@ -117,6 +117,7 @@ class CodeFW_App
         $this->name = $name;
         $this->path = CodeFW_App::getBaseDir().$this->name.'/';
         $this->readConfig();
+				add_action('admin_enqueue_scripts', array($this,'includeJsFile'));
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000AD5 end
     }
 
@@ -124,7 +125,7 @@ class CodeFW_App
      * Get app name
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @since 1.0
      * @version 1.0
      */
@@ -139,7 +140,7 @@ class CodeFW_App
      * Get application path related to wordpress install directory
      *
      * @access public
-     * @author João Patrício
+     * @author Joao Patricio
      * @since 1.0
      * @version 1.0
      */
@@ -154,7 +155,7 @@ class CodeFW_App
      * Get application config. Returns an array
      *
      * @access public
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -170,7 +171,7 @@ class CodeFW_App
      * Read application config file. Updates attribute config
      *
      * @access private
-     * @author João Patrício
+     * @author Joo Patrcio
      * @return mixed
      */
     private function readConfig()
@@ -185,7 +186,7 @@ class CodeFW_App
      * Get initial view name
      *
      * @access public
-     * @author João Patrício
+     * @author Joao Patricio
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -201,7 +202,7 @@ class CodeFW_App
      * Get the view content in html
      *
      * @access public
-     * @author João Patrício and André Bittencourt
+     * @author Joao Patricio
      * @param  view View name
      * @return mixed
      * @since 1.0
@@ -212,29 +213,19 @@ class CodeFW_App
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 begin
         //var_dump($this->getPath().'views/'.$view.'html');
 				$path = preg_replace('#^https?://#', '', plugins_url());
+				$path = '/'.$path.'/codefw-apps/'.$this->getName();
 				$jsContent = "<script type='text/javascript'>
 	/**
 	 * Get api url
 	 */
 	function codeFW_getApiBaseUrl(){
-		return '/".$path."/codefw-apps/".$this->getName()."/api.php';
-	}
-												
-	/**
-	 * Include custom js
-	 */
-	function codeFW_includeCustomJs(jsName) {
-		var jsFullPath = '".plugins_url()."/codefw-apps/".$this->getName()."/js/'+jsName+'.js';
-		var s = document.createElement('script');
-		s.type='text/javascript';
-		s.src= jsFullPath;
-		document.getElementsByTagName('body')[0].appendChild(s);
+		return '".$path."/api.php';
 	}
 
-    function codeFW_getAppBaseDir(){
-        return '/".$path."/codefw-apps/".$this->getName()."/';
-    }
-												
+	function codeFW_getAppBaseDir(){
+		return '".$path."/';
+	}
+	
 </script>";
         
     		$content = '<div class="codeFW_Wrap">';
@@ -243,6 +234,23 @@ class CodeFW_App
 				$content .= '</div>';
         return $content;
         // section 127-0-1-1--2b7cee71:143eaa7ed1d:-8000:0000000000000AF4 end
+    }
+
+    /**
+     * Include app.js file
+     *
+     * @access public
+     * @author Andre Bittencourt
+     * @return mixed
+     * @since 1.0
+     * @version 1.0
+     */
+    public function includeJsFile()
+    {
+        // section -64--88-1-3-3275a490:1441856423a:-8000:0000000000000B05 begin
+				$path = plugins_url().'/codefw-apps/'.$this->getName();
+				wp_enqueue_script('angular_js_route', $path.'/js/app.js', array(), '1.0.0', true);
+        // section -64--88-1-3-3275a490:1441856423a:-8000:0000000000000B05 end
     }
 
 } /* end of class CodeFW_App */
