@@ -23,8 +23,6 @@ if (0 > version_compare(PHP_VERSION, '5')) {
  */
 require_once('class.CodeFW_App.php');
 
- 
-
 /* user defined includes */
 // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B18-includes begin
 // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B18-includes end
@@ -62,7 +60,7 @@ class CodeFW
      * Create a new instance of CodeFW
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -79,7 +77,7 @@ class CodeFW
      * Get the applications list
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -96,7 +94,7 @@ class CodeFW
      * Read all active applications from json. Updates the attribute apps
      *
      * @access private
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -120,7 +118,7 @@ class CodeFW
      * Add an app menud to sidepane of wordpress backend
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -139,7 +137,7 @@ class CodeFW
      * Configure wordpress hooks to add actions
      *
      * @access private
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -156,7 +154,7 @@ class CodeFW
      * Loads an app from wordpress side menu
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -179,7 +177,7 @@ class CodeFW
      * Include bootstrap files on the app's view
      *
      * @access public
-     * @author Andr Bittencourt
+     * @author André Bittencourt
      * @return mixed
      * @since 1.0
      * @version 1.0

@@ -72,7 +72,7 @@ class CodeFW_App
      * Get application base directory
      *
      * @access public
-     * @author Jo�o Patr�cio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -88,7 +88,7 @@ class CodeFW_App
      * Check if a application exists in filesystem
      *
      * @access public
-     * @author Jo�o Patr�cio
+     * @author João Patrício
      * @param  name Application name
      * @return mixed
      * @since 1.0
@@ -105,7 +105,7 @@ class CodeFW_App
      * Creates a new CodeFW_App instance
      *
      * @access public
-     * @author Jo�o Patr�cio
+     * @author João Patrício
      * @param  name Application name. Must be a string without spaces or special characters
      * @return mixed
      * @since 1.0
@@ -124,7 +124,7 @@ class CodeFW_App
      * Get app name
      *
      * @access public
-     * @author Jo�o Patr�cio
+     * @author João Patrício
      * @since 1.0
      * @version 1.0
      */
@@ -154,7 +154,7 @@ class CodeFW_App
      * Get application config. Returns an array
      *
      * @access public
-     * @author Jo�o Patr�cio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -170,7 +170,7 @@ class CodeFW_App
      * Read application config file. Updates attribute config
      *
      * @access private
-     * @author Jo�o Patr�cio
+     * @author João Patrício
      * @return mixed
      */
     private function readConfig()
