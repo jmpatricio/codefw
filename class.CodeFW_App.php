@@ -249,7 +249,7 @@ class CodeFW_App
     {
         // section -64--88-1-3-3275a490:1441856423a:-8000:0000000000000B05 begin
 				$path = plugins_url().'/codefw-apps/'.$this->getName();
-				wp_enqueue_script('angular_js_route', $path.'/js/app.js', array(), '1.0.0', true);
+				wp_enqueue_script('app_main_js', $path.'/js/app.js', array('angular_js','angular_js_route'), '1.0.0', true);
         // section -64--88-1-3-3275a490:1441856423a:-8000:0000000000000B05 end
     }
 
