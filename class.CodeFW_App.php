@@ -230,6 +230,10 @@ class CodeFW_App
 		s.src= jsFullPath;
 		document.getElementsByTagName('body')[0].appendChild(s);
 	}
+
+    function codeFW_getAppBaseDir(){
+        return '/".$path."/codefw-apps/".$this->getName()."/';
+    }
 												
 </script>";
         
