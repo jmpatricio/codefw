@@ -187,8 +187,8 @@ class CodeFW
 				$bootstrapPath = plugins_url().'/codefw/include/ui/bootstrap/';
 				wp_enqueue_style('booststrap_custom_css', $bootstrapPath.'css/bootstrap-custom.css');
 				wp_enqueue_script('bootstrap_min_js', $bootstrapPath.'js/bootstrap.min.js', array('jquery'), '1.0.0', true);
-				wp_enqueue_script('angular_min_js', 'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js', array(), '1.0.0', true);
-				wp_enqueue_script('angular_route_js', 'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.js', array(), '1.0.0', true);
+				wp_enqueue_script('angular_min_js', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js', array());
+				//wp_enqueue_script('angular_route_js', 'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.js', array(), '1.0.0', true);
         // section -64--88-1-2-5a3b52dc:143f96db593:-8000:0000000000000B04 end
     }
 
