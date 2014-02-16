@@ -9,7 +9,7 @@ error_reporting(E_ALL);
  *
  * This file is part of CodeFW Diagrams.
  *
- * Automatically generated on 16.02.2014, 18:18:51 with ArgoUML PHP module 
+ * Automatically generated on 16.02.2014, 16:46:31 with ArgoUML PHP module 
  * (last revised $Date: 2010-01-12 20:14:42 +0100 (Tue, 12 Jan 2010) $)
  *
  * @author firstname and lastname of author, <author@example.org>
@@ -87,7 +87,7 @@ class CodeFW_App_API
     /**
      * Verify if this client call is valid or not
      *
-     * @access public
+     * @access protected
      * @author Joao Patricio
      * @return mixed
      * @since 1,0
@@ -115,31 +115,7 @@ class CodeFW_App_API
         // section 127-0-1-1--751a8510:1443b2e74af:-8000:0000000000000C24 end
     }
 
-    /**
-     * Listen and executes api requests
-     *
-     * @access public
-     * @author Joao Patricio
-     * @return mixed
-     * @since 1.0
-     * @version 1.0
-     */
-    public function listen()
-    {
-        // section 127-0-1-1--751a8510:1443b2e74af:-8000:0000000000000C33 begin
-        $is_valid = $this->validateClient();
-
-        if (!$is_valid || !isset($_GET['method'])  ){
-            //not valid. access denied
-            http_response_code(403);
-        } else {
-            $method_name = $_GET['method'];
-            $parameter = (empty($_GET['params'])) ? $_GET['params'] : null;
-            echo $this->{$method_name}($parameter);
-        }
-
-        // section 127-0-1-1--751a8510:1443b2e74af:-8000:0000000000000C33 end
-    }
+ 
 
 } /* end of class CodeFW_App_API */
 

@@ -25,6 +25,7 @@ require_once('class.CodeFW_App.php');
 
 /* user defined includes */
 // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B18-includes begin
+require_once('include/vendor/autoload.php');
 // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B18-includes end
 
 /* user defined constants */
@@ -54,13 +55,22 @@ class CodeFW
      */
     private $apps = null;
 
+    /**
+     * Database connection
+     *
+     * @access private
+     * @since 1.0
+     * @var Array
+     */
+    private $db = null;
+
     // --- OPERATIONS ---
 
     /**
      * Create a new instance of CodeFW
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -68,8 +78,22 @@ class CodeFW
     public function CodeFW()
     {
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B24 begin
+
+        //initialize the database connection
+        $config = new \Doctrine\DBAL\Configuration();
+        //..
+        $connectionParams = array(
+            'dbname' => DB_NAME,
+            'user' => DB_USER,
+            'password' => DB_PASSWORD,
+            'host' => DB_HOST,
+            'driver' => 'pdo_mysql',
+        );
+        $this->db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
+
         $this->readApps();
         $this->runWPHooks();
+        register_activation_hook( __FILE__, array( $this, 'installDatabase' ) );
         // section 127-0-1-1--766a57a2:143ea1b1add:-8000:0000000000000B24 end
     }
 
@@ -77,7 +101,7 @@ class CodeFW
      * Get the applications list
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -94,7 +118,7 @@ class CodeFW
      * Read all active applications from json. Updates the attribute apps
      *
      * @access private
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -118,7 +142,7 @@ class CodeFW
      * Add an app menud to sidepane of wordpress backend
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -136,7 +160,7 @@ class CodeFW
      * Configure wordpress hooks to add actions
      *
      * @access private
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -145,7 +169,7 @@ class CodeFW
     {
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000AE3 begin
         add_action('admin_menu', array($this,'addMenus'));
-				add_action('admin_enqueue_scripts', array($this,'includeBootstrapFiles'));
+		add_action('admin_enqueue_scripts', array($this,'includeBootstrapFiles'));
         // section 127-0-1-1-7dcf081a:143ea6edf6e:-8000:0000000000000AE3 end
     }
 
@@ -153,7 +177,7 @@ class CodeFW
      * Loads an app from wordpress side menu
      *
      * @access public
-     * @author Joo Patrcio
+     * @author João Patrício
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -164,8 +188,12 @@ class CodeFW
         $appName = $_GET['page'];
         if (!empty($appName)){
             $app = $this->apps[$appName];
+
+
+            $client = $this->createClient($app);
+            //var_dump($user);
             $view = $app->getInitialView();
-						echo $app->getViewContent($view);
+			echo $app->getViewContent($view, $client['id']);
         } else {
             echo "<h3>Ups</h3>";
         }
@@ -176,7 +204,7 @@ class CodeFW
      * Include bootstrap files on the app's view
      *
      * @access public
-     * @author Andr Bittencourt
+     * @author André Bittencourt
      * @return mixed
      * @since 1.0
      * @version 1.0
@@ -191,6 +219,108 @@ class CodeFW
 				wp_enqueue_script('angular_js', $angularPath.'angular.js', array(), '1.0.0', true);
 				wp_enqueue_script('angular_js_route', $angularPath.'angular-route.js', array('angular_js'), '1.0.0', true);
         // section -64--88-1-2-5a3b52dc:143f96db593:-8000:0000000000000B04 end
+    }
+
+    /**
+     * Create a new valid client
+     *
+     * @access private
+     * @author Joao Patricio
+     * @param  app
+     * @return mixed
+     * @since 1.0
+     * @version 1.0
+     */
+    private function createClient($app)
+    {
+        // section 127-0-1-1-14c550e7:1443737d2bb:-8000:0000000000000B0B begin
+
+        $client['id'] = $this->createGuid();
+        $client['ip'] = $_SERVER['REMOTE_ADDR']; 
+
+        $current_user = wp_get_current_user();
+        $client['id_user'] = $current_user->ID;
+        $client['app'] = $app->getName();
+        $client['is_active'] = 1;
+
+        date_default_timezone_set("UTC"); 
+        $client['_creation'] = time();
+        $client['end_date'] = $client['_creation'] + (60 * 30); //now + 30 min
+        
+        $this->cleanClients(); 
+        $this->db->insert('codefw_client', $client);
+
+        return $client; 
+        // section 127-0-1-1-14c550e7:1443737d2bb:-8000:0000000000000B0B end
+    }
+
+    /**
+     * Create a new guid.
+     *
+     * @access private
+     * @author Joao Patricio
+     * @return mixed
+     * @see http://guid.us/GUID/PHP
+     * @since 1.0
+     * @version 1.0
+     */
+    private function createGuid()
+    {
+        // section 127-0-1-1--751a8510:1443b2e74af:-8000:0000000000000C14 begin
+        static $guid = '';
+        $uid = uniqid("", true);
+        $data = mt_rand();
+        $data .= isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : mt_rand();
+        $data .= isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : mt_rand();
+        $data .= isset($_SERVER['LOCAL_ADDR']) ? $_SERVER['LOCAL_ADDR'] : mt_rand();
+        $data .= isset($_SERVER['LOCAL_PORT']) ? $_SERVER['LOCAL_PORT'] : mt_rand();
+        $data .= isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : mt_rand();
+        $data .= isset($_SERVER['REMOTE_PORT']) ? $_SERVER['REMOTE_PORT'] : mt_rand();
+        $hash = strtoupper(hash('ripemd128', $uid . $guid . md5($data)));
+        $guid = mt_rand(1,10) .   
+            substr($hash,  0,  8) . 
+            mt_rand(1,10) .
+            substr($hash,  8,  4) .
+            mt_rand(1,10) .
+            substr($hash, 12,  4) .
+            mt_rand(1,10) .
+            substr($hash, 16,  4) .
+            mt_rand(1,10) .
+            substr($hash, 20, 12) .
+            mt_rand(1,10);
+        return $guid; 
+        // section 127-0-1-1--751a8510:1443b2e74af:-8000:0000000000000C14 end
+    }
+
+    /**
+     * Clean old and inactive clients to mantain the table sanity
+     *
+     * @access public
+     * @author Joao Patricio
+     * @return mixed
+     * @since 1.0
+     * @version 1.0
+     */
+    public function cleanClients()
+    {
+        // section 127-0-1-1--751a8510:1443b2e74af:-8000:0000000000000C1B begin
+
+        $sql = "delete from codefw_client where is_active=:is_active or end_date < :now";
+
+        // query        
+        $q = $this->db->prepare($sql);
+
+        // bind parameters
+        date_default_timezone_set("UTC");
+        $q->bindValue("is_active", 0);
+        
+        date_default_timezone_set("UTC"); 
+        $q->bindValue("now", time());
+
+        // execute query
+        $q->execute();
+            
+        // section 127-0-1-1--751a8510:1443b2e74af:-8000:0000000000000C1B end
     }
 
 } /* end of class CodeFW */
