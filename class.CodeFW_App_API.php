@@ -134,8 +134,9 @@ class CodeFW_App_API
             http_response_code(403);
         } else {
             $method_name = $_GET['method'];
-            $parameter = (empty($_GET['params'])) ? $_GET['params'] : null;
-            echo $this->{$method_name}($parameter);
+
+            parse_str($_SERVER['QUERY_STRING'], $parameters);
+            echo $this->{$method_name}($parameters);
         }
 
         // section 127-0-1-1--751a8510:1443b2e74af:-8000:0000000000000C33 end
