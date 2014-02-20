@@ -9,7 +9,7 @@ error_reporting(E_ALL);
  *
  * This file is part of CodeFW Diagrams.
  *
- * Automatically generated on 16.02.2014, 18:18:51 with ArgoUML PHP module 
+ * Automatically generated on 20.02.2014, 22:46:46 with ArgoUML PHP module 
  * (last revised $Date: 2010-01-12 20:14:42 +0100 (Tue, 12 Jan 2010) $)
  *
  * @author firstname and lastname of author, <author@example.org>
@@ -136,10 +136,29 @@ class CodeFW_App_API
             $method_name = $_GET['method'];
 
             parse_str($_SERVER['QUERY_STRING'], $parameters);
-            echo $this->{$method_name}($parameters);
+            $this->{$method_name}($parameters);
         }
 
         // section 127-0-1-1--751a8510:1443b2e74af:-8000:0000000000000C33 end
+    }
+
+    /**
+     * Send json response to output
+     *
+     * @access protected
+     * @author Joao Patricio
+     * @param  response
+     * @param  code
+     * @return mixed
+     * @since 1.0
+     * @version 1.0
+     */
+    protected function sendJSON($response, $code)
+    {
+        // section 127-0-1-1--8dd4c14:14451795dc8:-8000:0000000000000B3D begin
+        echo json_encode($response);
+        http_response_code($code);
+        // section 127-0-1-1--8dd4c14:14451795dc8:-8000:0000000000000B3D end
     }
 
 } /* end of class CodeFW_App_API */
