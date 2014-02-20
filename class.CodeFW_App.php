@@ -215,7 +215,8 @@ class CodeFW_App
         //var_dump($this->getPath().'views/'.$view.'html');
 				$path = preg_replace('#^https?://#', '', plugins_url());
 				$path = '/'.$path.'/codefw-apps/'.$this->getName();
-				$jsContent = "<script type='text/javascript'>
+				$apiPath = plugins_url().'/codefw-apps/'.$this->getName().'api.php';
+				$jsContent = "<script>
 	/**
 	 * Get api url
 	 */
@@ -225,12 +226,12 @@ class CodeFW_App
 
 	function codeFW_getAppBaseDir(){
 		return '".$path."/';
-    }
+	}
 
-    function codeFW_getClientId(){
-        return '".$clientId."';
-    }
-	
+	function codeFW_getClientId(){
+		return '".$clientId."';
+	}
+
 </script>";
         
     		$content = '<div class="codeFW_Wrap">';
